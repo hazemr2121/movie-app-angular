@@ -1,0 +1,52 @@
+body {
+    background-color: white;
+}
+.card {
+    border:none;
+    outline: none;
+    border-radius:16px;
+    overflow: hidden; 
+}
+.image img{
+    border-radius: 27px;
+    height: 100% !important;
+}
+h2 {
+    font-weight: 600;
+ }
+.heart-icon {
+    color:#FFE353;
+    font-size: 22px;
+}
+.data {
+    color:rgb(210, 206, 206);
+    font-size: 14px;
+ 
+}
+.desc {
+    font-weight: 400;
+    font-size: 20px;
+}
+.rate {
+    font-size: 12px !important;
+}
+
+
+
+.No-movies {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.No-movies p {
+    font-size: 16px;
+     text-align: center;
+}
+.No-movies button {
+    background-color: #FFE353;
+    padding: 6px 60px;
+    border: none;
+    outline: none;
+}
