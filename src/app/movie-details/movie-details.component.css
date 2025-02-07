@@ -1,0 +1,32 @@
+    .movie-header {
+      background-color: #ffd700;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .movie-header .watchlist {
+      display: flex;
+      align-items: center;
+    }
+
+    .movie-card {
+      display: flex;
+      margin: 20px;
+    }
+
+    .movie-poster img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .recommendations img {
+      border-radius: 8px;
+      width: 200px !important;
+      height: 300px !important;
+    }
+
+    .badge {
+      margin-right: 5px;
+    }
