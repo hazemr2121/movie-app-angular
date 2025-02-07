@@ -6,9 +6,9 @@ import { MoviesWishlistComponent } from './movies-wishlist/movies-wishlist.compo
 import { MoviesSearchResultsComponent } from './movies-search-results/movies-search-results.component';
 
 export const routes: Routes = [
-  { path: '', component: MoviesListComponent }, // Main page
-  { path: 'movie/:id', component: MovieDetailsComponent }, // Movie details page
-  { path: 'wishlist', component: MoviesWishlistComponent }, // Wishlist page
-  { path: 'search', component: MoviesSearchResultsComponent }, // Search results page
-  { path: '**', redirectTo: '' }, // Redirect to main page for unknown routes
+  { path: '', component: MoviesListComponent },
+  { path: 'movie/:id', component: MovieDetailsComponent },
+  { path: 'wishlist', component: MoviesWishlistComponent },
+  { path: 'search', component: MoviesSearchResultsComponent },
+  { path: '**', redirectTo: '' },
 ];
