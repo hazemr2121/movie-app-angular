@@ -12,7 +12,11 @@
         class="nav-link d-flex align-items-center my-0 fw-bold text-black"
         routerLink="wishlist"
       >
-        <i class="bi bi-heart-fill text-black me-1 fs-3 my-0"></i> Watchlist
+        <i class="bi bi-heart-fill text-black me-1 fs-3 my-0"></i>
+        Watchlist
+        <span class="ms-1 bg-dark text-white rounded-1 px-1">
+          {{ wishlistService.getWishlistCount() | async }}
+        </span>
       </a>
     </div>
   </div>
