@@ -1,4 +1,3 @@
-<!-- <p>movies-wishlist works!</p> -->
 
 @if(wishlistMovies.length > 0){
   <div class="container mt-4">
@@ -8,61 +7,47 @@
          <div class="card mb-3 p-3 shadow-sm">
            <div class="row g-0">
      
-             <div class="col-md-4  image">
-
-
-              <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" class="img-fluid object-fit-cover" alt="{{ movie.title }}">
-               <!-- <img src="https://s3-alpha-sig.figma.com/img/53e3/ea25/d04d69f4415fbbb469ccd6a0522e4987?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gTB1JLJrPAIZyYxRI~aGt-Pt2iVgMbpS0Ty26WSC0~n2rrkf4Y2wU3y22YYUemtHBuV9c6xuSeV1dOd54xCKlweM9FhPQWUcJHkKIzBdp9Ht0hBqt47ADCERxwT2-vOleOPZQkyjCeRpqt5SQqBh-YLuXI47b-nscZ6sTgFlYW2tiBpmjzsk~BlcVSR~zFy6RyqFLs4M75ijED~hjggftjqHb617UuQh2xZZ4lyxDzOSWai1yCY6UzAOqVHfZuzsgiMCfuFijS6pvDowFVbLt2X~Nr2gabDq6n1IP7U0dvi0ixFIrm4Ey-N2ysmcfR1j2FbpyctcKwvL1sRHn5tktA__" 
-                    class="img-fluid object-fit-cover" 
-                    alt="image of Movie"> -->
+             <div class="col-md-4  image">              
+              <a [routerLink]="['/movie/'+ movie.id]">
+                <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" 
+                     class="img-fluid object-fit-cover" 
+                     alt="{{ movie.title }}">
+              </a>
              </div>
              
              <div class="col-md-8">
                <div class="card-body">
                  <div class="d-flex justify-content-between align-items-center">
-                   <!-- <h2 class="card-title">Black Widow</h2> -->
-                   <h2 class="card-title">{{ movie.title }}</h2>
-                   <!-- <i class="fas fa-heart heart-icon"></i> -->
-                   <i class="fas fa-heart heart-icon" (click)="removeFromWishlist(movie.id)"></i>
+                     <h2 class="card-title">
+                      <a [routerLink]="['/movie',movie.id]" class="text-decoration-none text-dark">
+                        {{ movie.title }}
+                      </a>
+                    </h2>
+
+
+
+                    <i class="fas fa-heart heart-icon" (click)="removeFromWishlist(movie.id)"></i>
 
                  </div>
-                 <!-- <span class="data"><small>Sep 25, 2017</small></span> -->
-                 <span class="data"><small>{{ movie.release_date }}</small></span>
+                  <span class="data"><small>{{ movie.release_date }}</small></span>
                 
-                   <!-- <div class="mb-3 start">
-                     <div class="rating">
-                       <i class="fas fa-star text-dark me-1"></i>
-                       <i class="fas fa-star text-dark me-1"></i>
-                       <i class="fas fa-star text-dark me-1"></i>
-                       <i class="fas fa-star text-dark me-1"></i>
-                       <i class="far fa-star text-dark me-1"></i> 
-                        <span class="ms-2 rate"><small>{{ movie.vote_count }}</small></span> 
-                   </div>
-                  </div> -->
+                
                   <div class="mb-3 start rating">   
                   @for(star of getStarClasses(movie.vote_average) ; track star){
                     <i [class]="star"></i>
                    }
+                   <span class="votecount"><small>{{ movie.vote_count }}</small></span>
                    </div>
+                  
                  
-                 
-                 
-                  <p class="card-text">{{ movie.overview }}</p>
-
-                  <!-- <p class="card-text">Natasha Romanoff, also known as Black Widow, confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises...</p> -->
-               </div>
+                   <p class="card-text">{{ movie.overview.split(' ').slice(0, 20).join(' ') }}......</p>
+                </div>
              </div>
            </div>
          </div>
        </div>
-     
-
-      }
-        
-     
+      } 
      </div>
-    
-    
     </div>
 }@else {
   <div class="No-movies">

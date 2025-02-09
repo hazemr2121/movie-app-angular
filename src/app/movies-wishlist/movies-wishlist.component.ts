@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { WishlistService } from '../services/wishlist.service';
 import { Movie } from '../movie.inteface';
-
- 
-
+import { RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-movies-wishlist',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './movies-wishlist.component.html',
   styleUrl: './movies-wishlist.component.css'
 })
@@ -28,17 +26,28 @@ export class MoviesWishlistComponent {
   goToMovies(){
     this.router.navigate(['/']); 
   }
+ 
+   
 
-  
   getStarClasses(rating: number) {
-    const roundedRating = Math.round(rating);
+    const fullStars = Math.floor(rating); 
+    const hasHalfStar = rating % 1 >= 0.5; 
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); 
+  
     const starClasses = [];
-    for (let i = 0; i < roundedRating; i++) {
-      starClasses.push('fa-solid fa-star fullSStar');
+  
+    for (let i = 0; i < fullStars; i++) {
+      starClasses.push('fa-solid fa-star yellow-star');
     }
-    for (let i =roundedRating ; i < 5; i++) {
-      starClasses.push('fa-solid fa-star');
+    if (hasHalfStar) {
+      starClasses.push('fa-solid fa-star-half-stroke yellow-star');
     }
-    return starClasses;
+  for (let i = 0; i < emptyStars; i++) {
+    starClasses.push('fa-solid fa-star black-star');
   }
+
+  return starClasses;
+}
+  
+  
 }

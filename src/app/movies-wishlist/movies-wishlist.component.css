@@ -1,53 +1,85 @@
+/* Start Global Rules */
+.card ,
+.No-movies button {
+    border:none;
+    outline: none;
+}
+/* End Global Rules */
 body {
     background-color: white;
 }
 .card {
-    border:none;
-    outline: none;
-    border-radius:16px;
+    border-radius:1rem;
     overflow: hidden; 
 }
-.image img{
-    border-radius: 27px;
-    height: 100% !important;
-}
+.image img {
+    width: 100%; 
+    height:18.75rem;
+    object-fit: cover; 
+    border-radius:1.6875rem;
+  }
 h2 {
     font-weight: 600;
  }
 .heart-icon {
     color:#FFE353;
-    font-size: 22px;
+    font-size:1.375rem;
 }
 .data {
     color:rgb(210, 206, 206);
-    font-size: 14px;
+    font-size: 0.875rem;
  
 }
 .desc {
     font-weight: 400;
-    font-size: 20px;
+    font-size:1.25rem;
 }
 .rate {
-    font-size: 12px !important;
+    font-size: 0.75rem !important;
 }
-
-
-
+.yellow-star {
+     color: black;
+}
+.votecount {
+    margin-left:10px;
+    font-size:0.875rem;
+}
+/* ////////////////////////////////////////// */
 .No-movies {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    margin-top: 10%;
+    align-items: center;      
+    justify-content: center;  
+    height: 100vh;            
+    text-align: center;     
 }
-
 .No-movies p {
-    font-size: 16px;
-     text-align: center;
+    font-size: 1rem;
+    text-align: center;
 }
 .No-movies button {
     background-color: #FFE353;
     padding: 6px 60px;
     border: none;
-    outline: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+.No-movies button:hover {
+    background-color: #FFC107;  
+    transform: scale(1.05); 
+}
+
+
+/* Media Query */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    h2 {
+        font-size: 16px;
+     }
+ .No-movies svg {
+    width: 200px;
+    height: 200px;
+ }   
+
 }
