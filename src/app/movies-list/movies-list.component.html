@@ -7,16 +7,24 @@
         class="form-control m-2"
         placeholder="Search and explore...."
         type="text"
+        [(ngModel)]="query"
+        (keyup.enter)="searchMovies(query)"
       />
-      <button class="btn btn-warning m-2">Search</button>
+      <button class="btn btn-warning m-2" (click)="searchMovies(query)">
+        Search
+      </button>
     </div>
   </div>
 </div>
 <br />
+@if (search) {
+<h3 class="fw-bold m-3">Search Results</h3>
+} @else {
 <h3 class="fw-bold m-3">Now Playing</h3>
+
+}
 <br />
 <div class="container-fluid px-4">
-  <!-- TODO To be changed later, this is just a placeholder -->
   <div class="row d-flex g-3 flex-row">
     @for (movie of nowPlaying; track movie.id) {
     <app-movie-card
@@ -24,82 +32,25 @@
       [movie]="movie"
     ></app-movie-card>
     }
-    <!-- <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div>
-    <div class="col-2">
-      <img
-        class="object-fit-contain w-100 rounded-2"
-        src="Ready Player One.jpg"
-        alt=""
-      />
-    </div> -->
   </div>
+</div>
+
+<div>
+  <ul class="pagination justify-content-center">
+    <li class="page-item" (click)="prevPage()">
+      <button class="page-link">
+        <span>&laquo;</span>
+      </button>
+    </li>
+
+    <li class="page-item">
+      <button disabled class="page-link">{{ page }}</button>
+    </li>
+
+    <li class="page-item">
+      <button class="page-link" (click)="nextPage()">
+        <span>&raquo;</span>
+      </button>
+    </li>
+  </ul>
 </div>
