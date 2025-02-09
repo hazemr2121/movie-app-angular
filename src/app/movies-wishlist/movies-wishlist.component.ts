@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { WishlistService } from '../services/wishlist.service';
 import { Movie } from '../movie.inteface';
 
+ 
+
+
 @Component({
   selector: 'app-movies-wishlist',
   imports: [],
@@ -11,8 +14,6 @@ import { Movie } from '../movie.inteface';
 })
 export class MoviesWishlistComponent {
   wishlistMovies: Movie[] = [];
-
-
   constructor(private router: Router,private wishlistService: WishlistService) {}
   ngOnInit() {
     this.wishlistService.getWishlist().subscribe(movies => {
@@ -26,5 +27,18 @@ export class MoviesWishlistComponent {
 
   goToMovies(){
     this.router.navigate(['/']); 
+  }
+
+  
+  getStarClasses(rating: number) {
+    const roundedRating = Math.round(rating);
+    const starClasses = [];
+    for (let i = 0; i < roundedRating; i++) {
+      starClasses.push('fa-solid fa-star fullSStar');
+    }
+    for (let i =roundedRating ; i < 5; i++) {
+      starClasses.push('fa-solid fa-star');
+    }
+    return starClasses;
   }
 }
