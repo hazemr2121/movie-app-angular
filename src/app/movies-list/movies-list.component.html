@@ -1,3 +1,4 @@
+<!-- * Search -->
 <div class="container-fluid mt-3">
   <div class="bg-body-secondary m-2 p-5">
     <h2 class="fw-bold">Welcome to our movie app</h2>
@@ -18,12 +19,14 @@
 </div>
 <br />
 @if (search) {
-<h3 class="fw-bold m-3">Search Results</h3>
+<h3 class="fw-bold m-3">Search Results: {{ current }}</h3>
 } @else {
 <h3 class="fw-bold m-3">Now Playing</h3>
 
 }
 <br />
+
+<!-- * Shows movie cards -->
 <div class="container-fluid px-4">
   <div class="row d-flex g-3 flex-row">
     @for (movie of nowPlaying; track movie.id) {
@@ -35,6 +38,7 @@
   </div>
 </div>
 
+<!-- * Pagination -->
 <div>
   <ul class="pagination justify-content-center">
     <li class="page-item" (click)="prevPage()">

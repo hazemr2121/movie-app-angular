@@ -1,11 +1,19 @@
 <div class="card border-0">
   <a [routerLink]="['/movie', movie.id]">
+    @if (movie.poster_path) {
     <img
       [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
       class="card-img-top object-fit-contain w-100 rounded-4"
       [alt]="movie.title"
       style="border-top-left-radius: 10px; border-top-right-radius: 10px"
     />
+    } @else {
+    <img
+      src="notfound.png"
+      class="card-img-top object-fit-contain w-100 rounded-4"
+      style="border-top-left-radius: 10px; border-top-right-radius: 10px"
+    />
+    }
   </a>
 
   <div class="card-body text-center">

@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService {
-  private apiKey = environment.apiKey;
+  private apiKey = 'fcb5a2d9b29416947192347cf8843e94';
   private baseUrl = 'https://api.themoviedb.org/3';
   private currentLanguage = new BehaviorSubject<string>('en');
 
