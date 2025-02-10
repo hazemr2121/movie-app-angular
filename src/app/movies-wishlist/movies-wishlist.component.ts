@@ -26,28 +26,27 @@ export class MoviesWishlistComponent {
   goToMovies(){
     this.router.navigate(['/']); 
   }
+    getStarClasses(rating: number) {
+      const adjustedRating = rating / 2;  
+      const fullStars = Math.floor(adjustedRating); 
+      const hasHalfStar = adjustedRating % 1 >= 0.5; 
+      const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); 
+      const starClasses = [];
+      for (let i = 0; i < fullStars; i++) {
+          starClasses.push('fa-solid fa-star yellow-star'); 
+      }
+      if (hasHalfStar) {
+          starClasses.push('fa-regular fa-star-half-stroke yellow-star');  
+      }
+      for (let i = 0; i < emptyStars; i++) {
+          starClasses.push('fa-regular fa-star black-star');  
+      }
+      return starClasses;
+    }
+
  
-   
+  
+ 
 
-  getStarClasses(rating: number) {
-    const fullStars = Math.floor(rating); 
-    const hasHalfStar = rating % 1 >= 0.5; 
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); 
-  
-    const starClasses = [];
-  
-    for (let i = 0; i < fullStars; i++) {
-      starClasses.push('fa-solid fa-star yellow-star');
-    }
-    if (hasHalfStar) {
-      starClasses.push('fa-solid fa-star-half-stroke yellow-star');
-    }
-  for (let i = 0; i < emptyStars; i++) {
-    starClasses.push('fa-solid fa-star black-star');
-  }
-
-  return starClasses;
-}
-  
   
 }

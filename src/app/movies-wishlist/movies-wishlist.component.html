@@ -7,10 +7,10 @@
          <div class="card mb-3 p-3 shadow-sm">
            <div class="row g-0">
      
-             <div class="col-md-4  image">              
+             <div class="col-md-4  image ">              
               <a [routerLink]="['/movie/'+ movie.id]">
                 <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" 
-                     class="img-fluid object-fit-cover" 
+                     class="img-fluid object-fit-contain h-100 " 
                      alt="{{ movie.title }}">
               </a>
              </div>
