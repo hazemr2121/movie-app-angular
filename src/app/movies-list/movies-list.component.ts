@@ -15,10 +15,18 @@ export class MoviesListComponent {
   query: any;
   current: any;
   search: boolean = false;
+  currentLanguage: string = 'en';
   constructor(private movieService: MovieService) {
     this.movieService.getNowPlaying(this.page).subscribe((data) => {
       this.nowPlaying = data.results;
     });
+    this.movieService.getCurrentLanguage().subscribe((data) => {
+      this.currentLanguage = data;
+      console.log(data);
+    });
+  }
+  ngOnChange(){
+    
   }
 
   nextPage() {

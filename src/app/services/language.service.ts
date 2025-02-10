@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class LanguageService {
   constructor() {}
-  private availableLanguages = ['en', 'ar', 'fr', 'zh'];
+  private availableLanguages = ['en', 'ar', 'fr', 'zh', 'ko', 'ja', 'el'];
   private currentLanguage = new BehaviorSubject<string>('en');
   private direction = new BehaviorSubject<'ltr' | 'rtl'>('ltr');
 
@@ -24,5 +24,8 @@ export class LanguageService {
 
   getAvailableLanguages(): string[] {
     return this.availableLanguages;
+  }
+  getCurrentLanguage(): Observable<string> {
+    return this.currentLanguage.asObservable();
   }
 }

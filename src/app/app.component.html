@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg p-0">
   <div class="container-fluid bg-warning">
-    <a class="navbar-brand fw-bold ms-3" href="#">Movie App</a>
+    <a class="navbar-brand fw-bold ms-3" routerLink="">Movie App</a>
     <div class="navbar-nav ms-auto d-flex flex-row align-items-center">
       <div class="dropdown">
         <a
@@ -9,13 +9,17 @@
           id="languageDropdown"
           data-bs-toggle="dropdown"
         >
-          EN
+          {{ currentLanguge | uppercase }}
         </a>
         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-          <li><a class="dropdown-item" (click)="changeLang('en')">EN</a></li>
-          <li><a class="dropdown-item" (click)="changeLang('ar')">AR</a></li>
-          <li><a class="dropdown-item" (click)="changeLang('fr')">FR</a></li>
-          <li><a class="dropdown-item" (click)="changeLang('zh')">ZH</a></li>
+          @for(lang of availiableLang; track $index){
+          <li>
+            <a class="dropdown-item" (click)="changeLang(lang)">{{
+              lang | uppercase
+            }}</a>
+          </li>
+
+          }
         </ul>
       </div>
       <a
