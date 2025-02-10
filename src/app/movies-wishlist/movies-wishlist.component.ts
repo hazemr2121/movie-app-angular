@@ -29,7 +29,6 @@ export class MoviesWishlistComponent {
   goToMovies() {
     this.router.navigate(['/']);
   }
-
   getStarClasses(rating: number) {
     const fullStars = Math.floor(rating / 2);
     const hasHalfStar = rating / 2 % 1 >= 0.5;
@@ -46,4 +45,5 @@ export class MoviesWishlistComponent {
     }
     return starClasses;
   }
+
 }
