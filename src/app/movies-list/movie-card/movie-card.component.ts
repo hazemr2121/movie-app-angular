@@ -2,10 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { WishlistService } from '../../services/wishlist.service';
+import { RatingCirclePipe } from '../../pipes/rating.pipe';
 
 @Component({
   selector: 'app-movie-card',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, RouterLink, RatingCirclePipe],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.css',
 })
