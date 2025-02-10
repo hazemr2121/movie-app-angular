@@ -1,69 +1,106 @@
-<header class="movie-header">
-  <h1>Movie App</h1>
-  <div class="watchlist">
-    <span class="me-2">Watchlist</span>
-    <span class="badge bg-dark">5</span>
-  </div>
-</header>
-
-<div class="container">
-  <div class="movie-card row">
-    <div class="movie-poster col-md-4">
-      <img src="Ready Player One.jpg" alt="Movie Poster">
+<div class="container-fluid mt-4">
+  @if (movie) {
+  <div class="row">
+    <div class="col-md-4">
+      <img
+        [src]="
+          movie.poster_path
+            ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+            : 'assets/notfound.png'
+        "
+        class="img-fluid rounded-5 w-100"
+        [alt]="movie.title"
+      />
     </div>
-    <div class="movie-details col-md-8">
-      <h2>Black Widow</h2>
-      <p><small>Sep 25, 2017</small></p>
-      <div class="mb-3">
-        <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-        <span class="ms-2">9288</span>
+    <div class="col-md-8 position-relative">
+      <button
+        class="btn border-0 p-0 position-absolute top-0 end-0"
+        (click)="toggleWishlist()"
+      >
+        @if (isWishlisted) {
+        <i class="bi bi-heart-fill text-warning fs-4"></i>
+        } @else {
+        <i class="bi bi-heart text-black fs-4"></i>
+        }
+      </button>
+      <h1 class="fw-bold">{{ movie.title }}</h1>
+      <p style="font-size: 10px" class="text-muted">
+        {{ movie.release_date | date }}
+      </p>
+      <div class="mb-3 start rating">
+        @for(star of getStarClasses(movie.vote_average) ; track star){
+        <i [class]="star"></i>
+        }
+        <span class="votecount ms-2">{{ movie.vote_count }}</span>
       </div>
-      <p>Natasha Romanoff, also known as Black Widow, confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises...</p>
-      <div class="mb-3">
-        <span class="badge bg-warning">Action</span>
-        <span class="badge bg-warning">Crime</span>
-        <span class="badge bg-warning">Thriller</span>
+      <p style="font-size: 25px">
+        {{ movie.overview || "No overview available" }}
+      </p>
+      <ul class="list-inline mt-5">
+        @for ( item of movie.genres; track $index) {
+        <li
+          class="list-inline-item bg-warning text-dark px-4 py-2 rounded-4 mx-2"
+        >
+          {{ item.name }}
+        </li>
+        }
+      </ul>
+      <div class="d-flex align-items-center my-5">
+        <p class="me-5">
+          <strong class="me-3">Duration:</strong> {{ movie.runtime }} Min.
+        </p>
+        <p class="ms-5">
+          <strong class="me-3">Original Language:</strong>
+          {{ movie.original_language | language }}
+        </p>
       </div>
-      <p><strong>Duration:</strong> 134 Min.</p>
-      <p><strong>Languages:</strong> English</p>
-
-      <a href="#" class="btn btn-outline-primary">Website</a>
+      <div class="container">
+        <div class="row">
+          <h2 class="my-3">Production Companies</h2>
+          @for (company of movie.production_companies; track company.id) {
+          <div
+            class="col-md-2 d-flex align-items-center justify-content-center"
+          >
+            <div >
+              @if (company.logo_path) {
+              <img
+                [src]="'https://image.tmdb.org/t/p/w200' + company.logo_path"
+                class="card-img-top"
+                [alt]="company.name"
+              />
+              } @else {
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ company.name }}</h5>
+              </div>
+              }
+            </div>
+          </div>
+          }
+        </div>
+      </div>
     </div>
   </div>
-  <hr>
-
-  <h3>Recommendations</h3>
-  <div class="recommendations row">
-    <div class="col-md-2">
-      <img src="Ready Player One.jpg" alt="The Good Doctor">
-      <p>The Good Doctor</p>
-      <p><small>85%</small></p>
-    </div>
-    <div class="col-md-2">
-      <img src="Ready Player One.jpg" alt="Rick and Morty">
-      <p>Rick and Morty</p>
-      <p><small>87%</small></p>
-    </div>
-    <div class="col-md-2">
-      <img src="Ready Player One.jpg" alt="My Fault">
-      <p>My Fault</p>
-      <p><small>81%</small></p>
-    </div>
-    <div class="col-md-2">
-      <img src="Ready Player One.jpg" alt="The Little Mermaid">
-      <p>The Little Mermaid</p>
-      <p><small>66%</small></p>
-    </div>
-    <div class="col-md-2">
-      <img src="Ready Player One.jpg" alt="John Wick: Chapter 4">
-      <p>John Wick: Chapter 4</p>
-      <p><small>78%</small></p>
-    </div>
-    <div class="col-md-2">
-      <img src="Ready Player One.jpg" alt="Family Guy">
-      <p>Family Guy</p>
-      <p><small>73%</small></p>
+  <hr />
+  } @if (!movie) {
+  <div class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
+  }
 </div>
-
+<div class="container-fluid">
+  @if (recommendations.length > 0) {
+  <div class="mt-5 ">
+    <h3 class="fw-bold">Recommendations</h3>
+    <div class="row d-flex justify-content-center">
+      @for ( rec of recommendations;track $index) {
+      <app-movie-card
+        class="col-6 col-sm-4 col-md-3 col-lg-2"
+        [movie]="rec"
+      ></app-movie-card>
+      }
+    </div>
+  </div>
+  }
+</div>

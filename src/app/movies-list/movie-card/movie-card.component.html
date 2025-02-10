@@ -1,25 +1,15 @@
 <div class="card border-0">
   <a [routerLink]="['/movie', movie.id]">
-    <img
-      [src]="
+    <img [src]="
         movie.poster_path
           ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
           : 'notfound.png'
-      "
-      class="card-img-top object-fit-contain w-100 rounded-4"
-      [alt]="movie.title"
-      style="border-top-left-radius: 10px; border-top-right-radius: 10px"
-    />
-    <div
-      class="position-absolute top-0 end-0 mb-2 me-2"
-      style="border-radius: 10px; padding: 5px"
-    >
-      <div
-        class=""
-        [innerHTML]="
+      " class="card-img-top object-fit-contain w-100 rounded-4" [alt]="movie.title"
+      style="border-top-left-radius: 10px; border-top-right-radius: 10px" />
+    <div class="position-absolute top-0 end-0 mb-2 me-2" style="border-radius: 10px; padding: 5px">
+      <div class="" [innerHTML]="
           movie.vote_average ? (movie.vote_average | ratingCircle) : ''
-        "
-      ></div>
+        "></div>
     </div>
   </a>
 
@@ -27,10 +17,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div>
         <a [routerLink]="['/movie', movie.id]" class="text-decoration-none">
-          <h5
-            class="card-title text-start fw-bold text-black"
-            title="{{ movie.title }}"
-          >
+          <h5 class="card-title text-start fw-bold text-black" title="{{ movie.title }}">
             {{ movie.title }}
           </h5>
         </a>
