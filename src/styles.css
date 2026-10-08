@@ -1,1 +1,130 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* * Mobile / touch tokens */
+:root {
+  --tap-min: 44px; /* Apple HIG minimum for icon buttons */
+  --tap-primary: 48px; /* Material minimum, used for primary actions */
+  --nav-h: 56px;
+  --brand: #ffc107;
+  /* Needs viewport-fit=cover in index.html, otherwise these are always 0 */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+html {
+  /* Pages with and without a scrollbar keep the same width, so nothing jumps */
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Keeps page content clear of the notch in landscape and the home indicator */
+.app-main {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  padding-bottom: calc(24px + var(--safe-bottom));
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* * Round icon button with a full 44x44 hit area, whatever the icon size */
+.icon-btn {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  font-size: 1.375rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.icon-btn:active {
+  background-color: rgba(0, 0, 0, 0.08);
+  transform: scale(0.94);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* * Posters reserve their 2:3 box before the image loads (no layout shift) */
+.poster {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  background-color: #e9ecef;
+}
+
+/* The rating SVG comes from innerHTML, so it can't be styled per component */
+.rating-badge {
+  width: 40px;
+  height: 40px;
+}
+
+.rating-badge svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .rating-badge {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* * Loading placeholders, same size as the real content */
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(90deg, #e9ecef 25%, #f5f6f7 37%, #e9ecef 63%);
+  background-size: 400% 100%;
+  animation: skeleton 1.4s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}

@@ -1,32 +1,88 @@
-    .movie-header {
-      background-color: #ffd700;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+/* On phones the poster is capped and centered instead of filling the screen */
+.details-poster {
+  max-width: min(60vw, 280px);
+  margin-inline: auto;
+}
 
-    .movie-header .watchlist {
-      display: flex;
-      align-items: center;
-    }
+@media (min-width: 768px) {
+  .details-poster {
+    max-width: 100%;
+  }
+}
 
-    .movie-card {
-      display: flex;
-      margin: 20px;
-    }
+.movie-title {
+  margin: 0;
+  font-size: clamp(1.625rem, 1.2rem + 2vw, 2.5rem);
+  overflow-wrap: anywhere;
+}
 
-    .movie-poster img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
+.release-date {
+  font-size: 0.75rem;
+}
 
-    .recommendations img {
-      border-radius: 8px;
-      width: 200px !important;
-      height: 300px !important;
-    }
+.overview {
+  font-size: clamp(1rem, 0.9rem + 0.6vw, 1.5625rem);
+  line-height: 1.5;
+}
 
-    .badge {
-      margin-right: 5px;
-    }
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.genres li {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background-color: var(--brand);
+  font-size: 0.875rem;
+}
+
+.section-title {
+  font-size: clamp(1.125rem, 1rem + 0.8vw, 1.75rem);
+}
+
+.company-logo {
+  max-width: 100%;
+  max-height: 56px;
+  object-fit: contain;
+}
+
+.company-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Reserve space while loading so the footer doesn't jump up and back */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60dvh;
+}
+
+.swipe-hint {
+  font-size: 0.75rem;
+  color: #adb5bd;
+}
+
+/* * Recommendations: horizontal scroll-snap carousel below md */
+@media (max-width: 767.98px) {
+  .recs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 8px;
+    padding-bottom: 8px;
+  }
+
+  .recs > app-movie-card {
+    flex: 0 0 auto;
+    width: min(42%, 180px);
+    scroll-snap-align: start;
+  }
+}

@@ -1,0 +1,72 @@
+.hero h2 {
+  font-size: clamp(1.375rem, 1rem + 2vw, 2rem);
+}
+
+.hero p {
+  color: #495057;
+}
+
+/* Landscape phones are wide enough for p-md-5 but too short for it */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    padding: 1rem 1.5rem !important;
+  }
+
+  .hero h2 {
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* 16px text stops iOS from zooming in when the field is focused */
+.search-input {
+  min-height: var(--tap-primary);
+  font-size: 1rem;
+}
+
+.search-btn {
+  min-height: var(--tap-primary);
+  padding-inline: 1.25rem;
+  font-weight: 600;
+}
+
+.list-heading {
+  margin: 24px 16px 16px;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+}
+
+@media (min-width: 768px) {
+  .list-heading {
+    margin-inline: 24px;
+  }
+}
+
+.skeleton-line {
+  height: 1em;
+}
+
+.skeleton-line--short {
+  width: 60%;
+}
+
+/* * 48px pager buttons with space between them */
+.pager {
+  gap: 8px;
+  margin: 32px 0 0;
+}
+
+.pager .page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap-primary);
+  min-height: var(--tap-primary);
+  margin: 0;
+  border-radius: 8px !important;
+  font-size: 1.125rem;
+  color: #000;
+}
+
+.pager .page-link.current {
+  background-color: #e9ecef;
+  color: #6c757d;
+}

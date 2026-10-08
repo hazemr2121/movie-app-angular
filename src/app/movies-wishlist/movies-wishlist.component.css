@@ -1,113 +1,145 @@
-/* Start Global Rules */
-.card ,
-.No-movies button {
-    border:none;
-    outline: none;
+/* * Card: thumbnail + text side by side on every screen size */
+.wl-card {
+  display: flex;
+  gap: 12px;
+  height: 100%;
+  padding: 10px;
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
-/* End Global Rules */
-body {
-    background-color: white;
+
+.wl-thumb {
+  flex: 0 0 88px;
+  overflow: hidden;
+  border-radius: 8px;
 }
-.card {
-    border-radius:1rem;
-    overflow: hidden; 
-}
-.image img {
-    width: 100%; 
-    height:18.75rem;
-    object-fit: cover; 
-    border-radius:1.6875rem;
+
+@media (min-width: 768px) {
+  .wl-card {
+    gap: 16px;
+    padding: 16px;
   }
-h2 {
-    font-weight: 600;
- }
+
+  .wl-thumb {
+    flex-basis: 33%;
+    border-radius: 1.25rem;
+  }
+}
+
+.wl-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.wl-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+  font-weight: 600;
+}
+
+/* Two lines of at least 22px each, so the link is a 44px tap target */
+.wl-title a {
+  --line: max(1.25em, calc(var(--tap-min) / 2));
+  min-height: calc(2 * var(--line));
+  line-height: var(--line);
+  color: #212529;
+  text-decoration: none;
+}
+
 .heart-icon {
-    color:#FFE353;
-    font-size:1.375rem;
+  color: #ffc107;
 }
+
 .data {
-    color:rgb(210, 206, 206);
-    font-size: 0.875rem;
- 
+  color: #6c757d;
+  font-size: 0.875rem;
 }
-.desc {
-    font-weight: 400;
-    font-size:1.25rem;
+
+.rating {
+  font-size: 0.75rem;
 }
-.rate {
-    font-size: 0.75rem !important;
-}
+
 .yellow-star {
-     color: black;
+  color: black;
 }
+
 .votecount {
-    margin-left:10px;
-    font-size:0.875rem;
+  margin-left: 10px;
+  font-size: 0.875rem;
 }
-/* ////////////////////////////////////////// */
-.No-movies {
-    display: flex;
-    flex-direction: column;
-    align-items: center;      
-    justify-content: center;  
-    height: 100vh;            
-    text-align: center;     
+
+/* Short on phones, more room once there's space for it */
+.wl-overview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 4px 0 0;
+  color: #495057;
+  font-size: 0.875rem;
 }
-.No-movies p {
+
+@media (min-width: 768px) {
+  .wl-overview {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
     font-size: 1rem;
-    text-align: center;
-}
-.No-movies button {
-    background-color: #FFE353;
-    padding: 6px 60px;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; 
-}
-
-.No-movies button:hover {
-    background-color: #FFC107;  
-    transform: scale(1.05); 
-}
-
-
-/* Media Query */
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-    .card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%; 
-      width: 100%; 
-     }
-    .card-body {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .image {
-        height: 100%; 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      .image img {
-        height: 100%; 
-        width: 100%;  
-         border-radius: 27px;
-      }
-    h2 {
-      font-size: 1rem;
-    }
-    .No-movies svg {
-        width: 200px;
-        height: 200px;
-     }   
-     p {
-        font-size: 0.75rem;
-     }
   }
-  
-  
+}
+
+/* * Empty state fills the screen below the sticky navbar, not 100vh + navbar */
+.No-movies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: calc(100dvh - var(--nav-h) - var(--safe-top) - 24px - var(--safe-bottom));
+  padding: 24px;
+  text-align: center;
+}
+
+.No-movies svg {
+  width: clamp(120px, 35vw, 212px);
+  height: auto;
+}
+
+.No-movies__text {
+  width: min(100%, 320px);
+}
+
+.No-movies p {
+  font-size: 1.125rem;
+}
+
+.No-movies button {
+  width: 100%;
+  min-height: var(--tap-primary);
+  border: none;
+  border-radius: 10px;
+  background-color: #ffe353;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.No-movies button:active {
+  background-color: #ffc107;
+  transform: scale(0.98);
+}
+
+/* Hover effects only for real pointers, so they don't stick after a tap */
+@media (hover: hover) {
+  .No-movies button:hover {
+    background-color: #ffc107;
+    transform: scale(1.05);
+  }
+}

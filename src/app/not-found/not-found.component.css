@@ -1,0 +1,19 @@
+/* Fill the screen below the sticky navbar instead of 100vh + navbar */
+.not-found {
+  min-height: calc(100dvh - var(--nav-h) - var(--safe-top) - 24px - var(--safe-bottom));
+}
+
+.code {
+  font-size: clamp(4.5rem, 3rem + 8vw, 6rem);
+}
+
+.title {
+  font-size: clamp(1.375rem, 1rem + 1.5vw, 2rem);
+}
+
+.go-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-primary);
+  padding-inline: 2rem;
+}

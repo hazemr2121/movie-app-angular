@@ -1,38 +1,56 @@
-<div class="card border-0">
-  <a [routerLink]="['/movie', movie.id]">
-    <img [src]="
+<div class="movie-card">
+  <a class="poster-link" [routerLink]="['/movie', movie.id]">
+    <img
+      [src]="
         movie.poster_path
           ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
           : 'notfound.png'
-      " class="card-img-top object-fit-contain w-100 rounded-4" [alt]="movie.title"
-      style="border-top-left-radius: 10px; border-top-right-radius: 10px" />
-    <div class="position-absolute top-0 end-0 mb-2 me-2" style="border-radius: 10px; padding: 5px">
-      <div class="" [innerHTML]="
-          movie.vote_average ? (movie.vote_average | ratingCircle) : ''
-        "></div>
-    </div>
+      "
+      class="poster"
+      width="500"
+      height="750"
+      loading="lazy"
+      decoding="async"
+      [alt]="movie.title"
+    />
+    @if (movie.vote_average) {
+    <div
+      class="rating-badge"
+      [innerHTML]="movie.vote_average | ratingCircle"
+    ></div>
+    }
   </a>
 
-  <div class="card-body text-center">
-    <div class="d-flex justify-content-between align-items-center">
-      <div>
-        <a [routerLink]="['/movie', movie.id]" class="text-decoration-none">
-          <h5 class="card-title text-start fw-bold text-black" title="{{ movie.title }}">
-            {{ movie.title }}
-          </h5>
-        </a>
-        <p class="text-muted mb-2 text-start">
-          {{ movie.release_date | date : "MMM d, yyyy" }}
-        </p>
-      </div>
-
-      <button class="btn border-0 p-0" (click)="toggleWishlist()">
-        @if (isWishlisted) {
-        <i class="bi bi-heart-fill text-warning fs-4"></i>
-        } @else {
-        <i class="bi bi-heart text-black fs-4"></i>
-        }
-      </button>
+  <div class="meta">
+    <div class="info">
+      <a
+        [routerLink]="['/movie', movie.id]"
+        class="title line-clamp-2"
+        title="{{ movie.title }}"
+      >
+        {{ movie.title }}
+      </a>
+      <p class="date">
+        {{ movie.release_date | date : "MMM d, yyyy" }}
+      </p>
     </div>
+
+    <button
+      type="button"
+      class="icon-btn"
+      (click)="toggleWishlist()"
+      [attr.aria-pressed]="isWishlisted"
+      [attr.aria-label]="
+        (isWishlisted ? 'Remove ' : 'Add ') +
+        movie.title +
+        (isWishlisted ? ' from watchlist' : ' to watchlist')
+      "
+    >
+      @if (isWishlisted) {
+      <i class="bi bi-heart-fill text-warning" aria-hidden="true"></i>
+      } @else {
+      <i class="bi bi-heart text-black" aria-hidden="true"></i>
+      }
+    </button>
   </div>
 </div>

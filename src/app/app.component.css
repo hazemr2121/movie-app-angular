@@ -1,0 +1,85 @@
+/* Sticky header whose yellow runs up under the status bar / notch,
+   while its content stays inside the safe area. */
+.app-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background-color: var(--brand);
+  padding-top: var(--safe-top);
+  padding-left: calc(12px + var(--safe-left));
+  padding-right: calc(4px + var(--safe-right));
+}
+
+.app-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: var(--nav-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav-btn:active {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.nav-btn:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.count-badge {
+  min-width: 1.5em;
+  padding: 0 4px;
+  border-radius: 4px;
+  background-color: #212529;
+  color: #fff;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: 16px;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #e9ecef;
+  color: #000;
+  font-weight: 600;
+}

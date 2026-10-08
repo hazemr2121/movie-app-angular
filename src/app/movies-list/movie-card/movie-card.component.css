@@ -1,0 +1,52 @@
+:host {
+  display: block;
+}
+
+.poster-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.rating-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Exactly two lines are always reserved, so short and long titles give equal
+   rows. Lines are at least 22px, so the link is never below 44px tall. */
+.title {
+  --line: max(1.25em, calc(var(--tap-min) / 2));
+  height: calc(2 * var(--line));
+  font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.125rem);
+  font-weight: 700;
+  line-height: var(--line);
+  color: #000;
+  text-decoration: none;
+}
+
+.date {
+  margin: 2px 0 0;
+  font-size: 0.8125rem;
+  color: #6c757d;
+}
+
+/* Pull the 44px hit area into the corner so the icon lines up with the title */
+.icon-btn {
+  margin-top: -8px;
+  margin-right: -8px;
+}

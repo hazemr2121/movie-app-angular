@@ -1,100 +1,103 @@
-<div class="container-fluid mt-4">
+<div class="container-fluid px-3 px-md-4 mt-4">
   @if (movie) {
-  <div class="row">
+  <div class="row g-4">
     <div class="col-md-4">
       <img
         [src]="
           movie.poster_path
             ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
-            : 'assets/notfound.png'
+            : 'notfound.png'
         "
-        class="img-fluid rounded-5 w-100"
+        class="poster details-poster rounded-5"
+        width="500"
+        height="750"
+        fetchpriority="high"
         [alt]="movie.title"
       />
     </div>
-    <div class="col-md-8 position-relative">
-      <button
-        class="btn border-0 p-0 position-absolute top-0 end-0"
-        (click)="toggleWishlist()"
-      >
-        @if (isWishlisted) {
-        <i class="bi bi-heart-fill text-warning fs-4"></i>
-        } @else {
-        <i class="bi bi-heart text-black fs-4"></i>
-        }
-      </button>
-      <h1 class="fw-bold">{{ movie.title }}</h1>
-      <p style="font-size: 10px" class="text-muted">
+    <div class="col-md-8">
+      <div class="d-flex align-items-start gap-2">
+        <h1 class="movie-title fw-bold flex-grow-1">{{ movie.title }}</h1>
+        <button
+          type="button"
+          class="icon-btn"
+          (click)="toggleWishlist()"
+          [attr.aria-pressed]="isWishlisted"
+          [attr.aria-label]="
+            isWishlisted ? 'Remove from watchlist' : 'Add to watchlist'
+          "
+        >
+          @if (isWishlisted) {
+          <i class="bi bi-heart-fill text-warning" aria-hidden="true"></i>
+          } @else {
+          <i class="bi bi-heart text-black" aria-hidden="true"></i>
+          }
+        </button>
+      </div>
+      <p class="release-date text-muted">
         {{ movie.release_date | date }}
       </p>
       <div class="mb-3 start rating">
-        @for(star of getStarClasses(movie.vote_average) ; track star){
+        @for(star of getStarClasses(movie.vote_average) ; track $index){
         <i [class]="star"></i>
         }
         <span class="votecount ms-2">{{ movie.vote_count }}</span>
       </div>
-      <p style="font-size: 25px">
+      <p class="overview">
         {{ movie.overview || "No overview available" }}
       </p>
-      <ul class="list-inline mt-5">
+      <ul class="genres">
         @for ( item of movie.genres; track $index) {
-        <li
-          class="list-inline-item bg-warning text-dark px-4 py-2 rounded-4 mx-2"
-        >
-          {{ item.name }}
-        </li>
+        <li>{{ item.name }}</li>
         }
       </ul>
-      <div class="d-flex align-items-center my-5">
-        <p class="me-5">
-          <strong class="me-3">Duration:</strong> {{ movie.runtime }} Min.
+      <div class="d-flex flex-column flex-md-row gap-2 gap-md-5 my-4">
+        <p class="mb-0">
+          <strong class="me-2">Duration:</strong> {{ movie.runtime }} Min.
         </p>
-        <p class="ms-5">
-          <strong class="me-3">Original Language:</strong>
+        <p class="mb-0">
+          <strong class="me-2">Original Language:</strong>
           {{ movie.original_language | language }}
         </p>
       </div>
-      <div class="container">
-        <div class="row">
-          <h2 class="my-3">Production Companies</h2>
-          @for (company of movie.production_companies; track company.id) {
-          <div
-            class="col-md-2 d-flex align-items-center justify-content-center"
-          >
-            <div >
-              @if (company.logo_path) {
-              <img
-                [src]="'https://image.tmdb.org/t/p/w200' + company.logo_path"
-                class="card-img-top"
-                [alt]="company.name"
-              />
-              } @else {
-              <div class="card-body text-center">
-                <h5 class="card-title">{{ company.name }}</h5>
-              </div>
-              }
-            </div>
-          </div>
+      <h2 class="section-title my-3">Production Companies</h2>
+      <div class="row g-3 align-items-center">
+        @for (company of movie.production_companies; track company.id) {
+        <div class="col-4 col-md-2 text-center">
+          @if (company.logo_path) {
+          <img
+            [src]="'https://image.tmdb.org/t/p/w200' + company.logo_path"
+            class="company-logo"
+            loading="lazy"
+            [alt]="company.name"
+          />
+          } @else {
+          <span class="company-name">{{ company.name }}</span>
           }
         </div>
+        }
       </div>
     </div>
   </div>
   <hr />
   } @if (!movie) {
-  <div class="text-center mt-5">
-    <div class="spinner-border text-primary" role="status">
+  <div class="loading">
+    <div class="spinner-border text-warning" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
   }
 </div>
-<div class="container-fluid">
+<div class="container-fluid px-3 px-md-4">
   @if (recommendations.length > 0) {
-  <div class="mt-5 ">
-    <h3 class="fw-bold">Recommendations</h3>
-    <div class="row d-flex justify-content-center">
-      @for ( rec of recommendations;track $index) {
+  <div class="mt-5">
+    <div class="d-flex align-items-baseline justify-content-between">
+      <h3 class="section-title fw-bold">Recommendations</h3>
+      <span class="swipe-hint d-md-none" aria-hidden="true">swipe &rarr;</span>
+    </div>
+    <!-- Swipeable row on phones, normal grid from md up -->
+    <div class="row g-3 recs justify-content-md-center">
+      @for ( rec of recommendations;track rec.id) {
       <app-movie-card
         class="col-6 col-sm-4 col-md-3 col-lg-2"
         [movie]="rec"

@@ -16,6 +16,7 @@ export class MoviesListComponent {
   current: any;
   search: boolean = false;
   currentLanguage: string = 'en';
+  skeletons = Array.from({ length: 12 }, (_, i) => i);
   constructor(private movieService: MovieService) {
     this.movieService.getNowPlaying(this.page).subscribe((data) => {
       this.nowPlaying = data.results;

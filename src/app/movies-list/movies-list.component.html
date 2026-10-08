@@ -1,60 +1,85 @@
 <!-- * Search -->
-<div class="container-fluid mt-3">
-  <div class="bg-body-secondary m-2 p-5">
+<div class="container-fluid px-3 px-md-4 mt-3">
+  <div class="hero bg-body-secondary rounded-3 p-3 p-md-5">
     <h2 class="fw-bold">Welcome to our movie app</h2>
-    <p>Millions of movies, TV shows and people to discover. Explore now.</p>
-    <div class="d-flex">
+    <p class="mb-3">Millions of movies, TV shows and people to discover. Explore now.</p>
+    <div class="d-flex gap-2">
       <input
-        class="form-control m-2"
+        #searchInput
+        class="form-control search-input"
         placeholder="Search and explore...."
-        type="text"
+        type="search"
+        inputmode="search"
+        enterkeyhint="search"
+        autocomplete="off"
+        aria-label="Search movies"
         [(ngModel)]="query"
-        (keyup.enter)="searchMovies(query)"
+        (keyup.enter)="searchMovies(query); searchInput.blur()"
       />
-      <button class="btn btn-warning m-2" (click)="searchMovies(query)">
+      <button class="btn btn-warning search-btn" (click)="searchMovies(query)">
         Search
       </button>
     </div>
   </div>
 </div>
-<br />
-@if (search) {
-<h3 class="fw-bold m-3">Search Results: {{ current }}</h3>
-} @else {
-<h3 class="fw-bold m-3">Now Playing</h3>
 
+@if (search) {
+<h3 class="list-heading fw-bold">Search Results: {{ current }}</h3>
+} @else {
+<h3 class="list-heading fw-bold">Now Playing</h3>
 }
-<br />
 
 <!-- * Shows movie cards -->
-<div class="container-fluid px-4">
-  <div class="row d-flex g-3 flex-row justify-content-center ">
+<div class="container-fluid px-3 px-md-4">
+  <div class="row g-3 justify-content-center">
+    @if (nowPlaying) {
     @for (movie of nowPlaying; track movie.id) {
     <app-movie-card
       class="col-6 col-sm-4 col-md-3 col-lg-2"
       [movie]="movie"
     ></app-movie-card>
     }
+    } @else {
+    <!-- Same size as real cards, so nothing jumps when the data arrives -->
+    @for (i of skeletons; track i) {
+    <div class="col-6 col-sm-4 col-md-3 col-lg-2" aria-hidden="true">
+      <div class="skeleton poster rounded-3"></div>
+      <div class="skeleton skeleton-line mt-2"></div>
+      <div class="skeleton skeleton-line skeleton-line--short mt-1"></div>
+    </div>
+    }
+    }
   </div>
 </div>
 
 <!-- * Pagination -->
-<div>
-  <ul class="pagination justify-content-center">
-    <li class="page-item" (click)="prevPage()">
-      <button class="page-link">
-        <span>&laquo;</span>
+<nav aria-label="Pages">
+  <ul class="pagination pager justify-content-center">
+    <li class="page-item" [class.disabled]="page <= 1">
+      <button
+        type="button"
+        class="page-link"
+        aria-label="Previous page"
+        [disabled]="page <= 1"
+        (click)="prevPage()"
+      >
+        <span aria-hidden="true">&laquo;</span>
       </button>
     </li>
 
     <li class="page-item">
-      <button disabled class="page-link">{{ page }}</button>
+      <span class="page-link current" aria-current="page">{{ page }}</span>
     </li>
 
     <li class="page-item">
-      <button class="page-link" (click)="nextPage()">
-        <span>&raquo;</span>
+      <button
+        type="button"
+        class="page-link"
+        aria-label="Next page"
+        (click)="nextPage()"
+      >
+        <span aria-hidden="true">&raquo;</span>
       </button>
     </li>
   </ul>
-</div>
+</nav>

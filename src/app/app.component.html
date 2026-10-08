@@ -1,39 +1,47 @@
-<nav class="navbar navbar-expand-lg p-0">
-  <div class="container-fluid bg-warning">
-    <a class="navbar-brand fw-bold ms-3" routerLink="">Movie App</a>
-    <div class="navbar-nav ms-auto d-flex flex-row align-items-center">
+@let wishlistCount = wishlistService.getWishlistCount() | async;
+<nav class="app-nav">
+  <div class="app-nav__inner">
+    <a class="brand" routerLink="">Movie App</a>
+    <div class="nav-actions">
       <div class="dropdown">
-        <a
-          class="nav-link fw-bold me-4 text-black dropdown-toggle d-flex align-items-center"
-          href="#"
+        <button
+          type="button"
+          class="nav-btn dropdown-toggle"
           id="languageDropdown"
           data-bs-toggle="dropdown"
+          aria-expanded="false"
+          [attr.aria-label]="'Language: ' + (currentLanguge | uppercase)"
         >
           {{ currentLanguge | uppercase }}
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
           @for(lang of availiableLang; track $index){
           <li>
-            <a class="dropdown-item" (click)="changeLang(lang)">{{
-              lang | uppercase
-            }}</a>
+            <button
+              type="button"
+              class="dropdown-item"
+              [class.active]="lang === currentLanguge"
+              (click)="changeLang(lang)"
+            >
+              {{ lang | uppercase }}
+            </button>
           </li>
-
           }
         </ul>
       </div>
       <a
-        class="nav-link d-flex align-items-center my-0 fw-bold text-black"
+        class="nav-btn"
         routerLink="wishlist"
+        [attr.aria-label]="'Watchlist, ' + wishlistCount + ' movies'"
       >
-        <i class="bi bi-heart-fill text-black me-1 fs-3 my-0"></i>
-        Watchlist
-        <span class="ms-1 bg-dark text-white rounded-1 px-1">
-          {{ wishlistService.getWishlistCount() | async }}
-        </span>
+        <i class="bi bi-heart-fill fs-4" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">Watchlist</span>
+        <span class="count-badge">{{ wishlistCount }}</span>
       </a>
     </div>
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>

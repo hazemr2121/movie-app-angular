@@ -1,51 +1,46 @@
 @if(wishlistMovies.length > 0){
-<div class="container mt-4">
-  <div class="row gx-3 gy-3">
+<div class="container px-3 mt-3 mt-md-4">
+  <div class="row g-3">
     @for(movie of wishlistMovies;track movie.id){
-    <div class="col-md-6 Card-item">
-      <div class="card mb-3 p-3 shadow-sm">
-        <div class="row g-0">
-          <div class="col-md-4 image">
-            <a [routerLink]="['/movie/' + movie.id]">
-              <img
-                [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-                class="img-fluid object-fit-cover"
-                alt="{{ movie.title }}"
-              />
-            </a>
+    <div class="col-md-6">
+      <div class="wl-card">
+        <a class="wl-thumb" [routerLink]="['/movie', movie.id]">
+          <img
+            [src]="
+              movie.poster_path
+                ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+                : 'notfound.png'
+            "
+            class="poster"
+            width="500"
+            height="750"
+            loading="lazy"
+            decoding="async"
+            alt="{{ movie.title }}"
+          />
+        </a>
+        <div class="wl-body">
+          <div class="d-flex align-items-start gap-1">
+            <h2 class="wl-title">
+              <a class="line-clamp-2" [routerLink]="['/movie', movie.id]">{{ movie.title }}</a>
+            </h2>
+            <button
+              type="button"
+              class="icon-btn heart-icon"
+              [attr.aria-label]="'Remove ' + movie.title + ' from watchlist'"
+              (click)="removeFromWishlist(movie.id)"
+            >
+              <i class="fas fa-heart" aria-hidden="true"></i>
+            </button>
           </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h2 class="card-title">
-                  <a
-                    [routerLink]="['/movie', movie.id]"
-                    class="text-decoration-none text-dark"
-                  >
-                    {{ movie.title }}
-                  </a>
-                </h2>
-                <i
-                  class="fas fa-heart heart-icon"
-                  (click)="removeFromWishlist(movie.id)"
-                ></i>
-              </div>
-              <span class="data"
-                ><small>{{ movie.release_date }}</small></span
-              >
-              <div class="mb-3 start rating">
-                @for(star of getStarClasses(movie.vote_average) ; track star){
-                <i [class]="star"></i>
-                }
-                <span class="votecount"
-                  ><small>{{ movie.vote_count }}</small></span
-                >
-              </div>
-              <p class="card-text">
-                {{ movie.overview.split(" ").slice(0, 20).join(" ") }}......
-              </p>
-            </div>
+          <span class="data"><small>{{ movie.release_date }}</small></span>
+          <div class="rating">
+            @for(star of getStarClasses(movie.vote_average) ; track $index){
+            <i [class]="star"></i>
+            }
+            <span class="votecount"><small>{{ movie.vote_count }}</small></span>
           </div>
+          <p class="wl-overview">{{ movie.overview }}</p>
         </div>
       </div>
     </div>
@@ -60,6 +55,7 @@
     viewBox="0 0 212 212"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <path
       d="M204.253 73.2113C204.253 84.9256 202.382 95.7544 199.134 105.795C183.58 155.015 135.64 184.449 111.916 192.521C108.569 193.702 103.056 193.702 99.7094 192.521C93.4092 190.355 85.4351 186.713 76.8708 181.594C71.3582 178.346 70.4722 170.667 75.0004 166.139L186.041 55.0983C191.357 49.7826 200.709 52.0467 202.579 59.3312C203.662 63.761 204.253 68.3877 204.253 73.2113Z"
@@ -70,9 +66,9 @@
       fill="#D1D1D1"
     />
   </svg>
-  <div>
-    <p>No Movies in watch list</p>
-    <button (click)="goToMovies()">Back to home</button>
+  <div class="No-movies__text">
+    <p class="fw-semibold">No Movies in watch list</p>
+    <button type="button" (click)="goToMovies()">Back to home</button>
   </div>
 </div>
 
